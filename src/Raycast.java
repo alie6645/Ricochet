@@ -1,3 +1,4 @@
+import javax.sound.sampled.Line;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
@@ -42,6 +43,14 @@ public class Raycast {
         return null;
     }
 
+    public static Point check(Line2D line, Line2D line2){
+        Point P1 = new Point((int) line.getX1(), (int) line.getY1());
+        Point P2 = new Point((int) line.getX2(), (int) line.getY2());
+        Point P3 = new Point((int) line2.getX1(), (int) line2.getY1());
+        Point P4 = new Point((int) line2.getX2(), (int) line2.getY2());
+        return check(P1, P2, P3, P4);
+    }
+
 
     public static Point cross(Point A, Point B, Point C, Point D){
         int x;
@@ -84,6 +93,7 @@ public class Raycast {
         if (Math.min(C.x,D.x)<=x&&Math.max(C.x,D.x)>=x){
             if (Math.min(C.y,D.y)<=y&&Math.max(C.y,D.y)>=y){
                 if (Math.min(A.y,B.y)<=y&&Math.max(A.y,B.y)>=y) {
+                    if (Math.min(A.x,B.x)<=x&&Math.max(A.x,B.x)>=x)
                     return new Point(x, y);
                 }
             }

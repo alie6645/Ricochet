@@ -9,7 +9,9 @@ public class Walls implements Drawable {
 
     @Override
     public void draw(Graphics2D g2) {
-
+        for (Wall wall:walls){
+            wall.draw(g2);
+        }
     }
 
     public Wall get(int index){
@@ -17,5 +19,9 @@ public class Walls implements Drawable {
     }
     public int getSize() {
         return walls.size();
+    }
+
+    public void add(int x1, int y1, int x2, int y2){
+        walls.add(new Wall(x1, y1, x2, y2));
     }
 }

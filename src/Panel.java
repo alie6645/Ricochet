@@ -21,6 +21,7 @@ public class Panel extends JComponent {
         for (Updatable comp:updates){
             comp.update();
         }
+        repaint();
     }
 
     @Override

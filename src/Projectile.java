@@ -24,12 +24,21 @@ public class Projectile implements Drawable, Updatable {
         this.ray = new Line2D.Double(x,y,x+xChange,y+yChange);
     }
 
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
 
+    public void setVector(double x, double y){
+        xChange = x;
+        yChange = y;
+    }
 
     public void draw(Graphics2D g2){
         if (visible) {
             g2.setColor(Color.RED);
             g2.fillOval((int)x - ((diameter + 1) / 2), (int)y - ((diameter + 1) / 2), diameter, diameter);
+            g2.draw(ray);
         }
     }
 
@@ -45,5 +54,18 @@ public class Projectile implements Drawable, Updatable {
     public void update() {
         x += xChange;
         y += yChange;
+        ray.setLine(x,y,x+xChange,y+yChange);
+    }
+
+    public double getxChange() {
+        return xChange;
+    }
+
+    public double getyChange() {
+        return yChange;
+    }
+
+    public Line2D getRay() {
+        return ray;
     }
 }
