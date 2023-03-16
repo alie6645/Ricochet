@@ -13,7 +13,8 @@ public class MainFrame {
         RicochetHandler handler = new RicochetHandler();
         handler.walls = map.walls;
         handler.projectiles = map.projectiles;
-        map.projectiles.add(new Projectile(100,100,4,2,1000));
+        map.projectiles.add(new Projectile(100,100,2,-3,1000));
+        map.projectiles.add(new Projectile(100,100,-4,2,1000));
 
         frame.add(panel);
         frame.addMouseListener(new Cursor());

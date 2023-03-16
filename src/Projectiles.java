@@ -29,6 +29,7 @@ public class Projectiles implements Drawable, Updatable {
     @Override
     public void update() {
         for (Projectile proj:projectiles){
+            //proj.setVector(proj.getxChange()- proj.getxChange()*0.005, proj.getyChange()- proj.getyChange()*0.005);
             proj.update();
         }
     }

@@ -12,33 +12,18 @@ public class RicochetHandler {
                 Wall wall = walls.get(w);
                 Line2D ray = proj.getRay();
                 Point intersect = Raycast.check(ray,wall.hitbox);
-                if (intersect != null){
-                    AffineTransform transform = new AffineTransform();
-                    double xChange = intersect.getX() - (ray.getX2()+proj.getxChange());
-                    double yChange = intersect.getY() - (ray.getY2()+proj.getyChange());
-                    double magnitude = Math.sqrt(Math.pow(xChange,2)+Math.pow(yChange,2));
+                if (intersect != null) {
+                    Vector2 change = new Vector2(proj.getxChange(), proj.getyChange());
+                    double speed = change.magnitude();
+                    change = change.norm();
                     Line2D.Double normal = wall.getNormal();
-                    double xNorm = normal.x2 - normal.x1;
-                    double yNorm = normal.y2 - normal.y1;
-                    double magNorm = Math.sqrt(Math.pow(yNorm,2)+Math.pow(xNorm,2));
-                    double dot = xNorm*xChange+yNorm*yChange;
-                    double vectorProduct = xChange*yNorm - yChange*xNorm;
-                    int sign = 1;
-                    if (vectorProduct > 0){
-                        sign = 1;
-                    } else if (vectorProduct < 0){
-                        sign = -1;
-                    } else {
-                        System.out.println("AHHHHH!!!!");
-                    }
-                    double rotation = sign*2*Math.acos((dot)/Math.abs(magNorm*magnitude));
-                    transform.setToRotation(rotation);
-                    Point vector = new Point((int)xChange,(int)yChange);
-                    transform.transform(vector,vector);
-                    proj.setPosition(intersect.x, intersect.y);
-                    double divisor = Math.sqrt(Math.pow(vector.getY(),2) + Math.pow(vector.getX(),2))/Math.sqrt(Math.pow(proj.getxChange(),2) + Math.pow(proj.getyChange(),2));
-                    proj.setVector(vector.x/divisor,vector.y/divisor);
-                    return;
+                    Vector2 normalVector = new Vector2(normal.x2 - normal.x1, normal.y2 - normal.y1).norm();
+                    double dot = normalVector.dot(change);
+                    Vector2 reflect = new Vector2(change.x - 2 * dot * normalVector.x, change.y - 2 * dot * normalVector.y);
+                    int xAdjust = (change.x < 0) ? 1 : -1;
+                    int yAdjust = (change.y < 0) ? 1 : -1;
+                    proj.setPosition(intersect.x + xAdjust, intersect.y + yAdjust);
+                    proj.setVector(reflect.x * speed,reflect.y * speed);
                 }
             }
         }

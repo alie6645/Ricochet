@@ -54,6 +54,10 @@ public class Projectile implements Drawable, Updatable {
     public void update() {
         x += xChange;
         y += yChange;
+        lifetime -= 1;
+        if (lifetime < 0){
+            visible = false;
+        }
         ray.setLine(x,y,x+xChange,y+yChange);
     }
 

@@ -52,7 +52,7 @@ public class Raycast {
     }
 
 
-    public static Point cross(Point A, Point B, Point C, Point D){
+    private static Point cross(Point A, Point B, Point C, Point D){
         int x;
         int y;
         if (slope(A,B) == 0){
@@ -80,7 +80,7 @@ public class Raycast {
     }
 
 
-    public static Point infinite(Point A, Point B, Point C, Point D){
+    private static Point infinite(Point A, Point B, Point C, Point D){
         int x;
         int y;
         if (Double.isInfinite(slope(A,B))){
